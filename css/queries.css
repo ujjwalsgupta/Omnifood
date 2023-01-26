@@ -1,0 +1,426 @@
+/*todo 1: Introduction to Media Queries */
+
+/*?NOTE 1: Refer img/Media Queries (Max-Width).png for more info about media queries */
+/*!NOTE 2: In desktop 1st approach, we use max-width inside media queries. & in mobile 1st approach, we use min-width inside media queries. */
+/*!NOTE 3: And as always the css styles (for same selector) which is written below the another selector will be applied. Same is in the case of media queries. The styles of max-width: 600px will over-write the same styles written for max-width: 1200px if the mq of max-width: 600px is written at bottom. */
+
+/* @media (max-width: 1200px) {
+  .section-hero {
+    background-color: orangered;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-hero {
+    border: 8px dashed blue;
+    background-color: blue;
+  }
+} */
+
+/***************************************/
+
+/*todo 2: Breakpoint Stratagies of Media Queries */
+
+/*?NOTE: Refer img/MQ Breakpoints Techniques.png to know more about stratagies that we should use to make the brekpoints for all devices properly. */
+
+/***************************************/
+
+/*todo 3: Responding to small laptops */
+
+/*!NOTE: rem & em do not depend on html font-size in media queries. */
+/*! Instead 1rem = 1em = 16px */
+/*! In media queries we use em instead of rem because there's some bug in Safari browser while using rem. */
+/*!NOTE: Make sure, each breakpoint is atleast 200px far. */
+
+/*? Firstly, we are going to use 1350px breakpoint, so converting it to em unit, 1350 / 16 = 84.3 ~ 84em */
+
+/*! ********************************** */
+/* BELOW 1344px (Smaller Desktops) (Design break-wise) */
+/*! ********************************** */
+
+@media (max-width: 84em) {
+  .hero {
+    max-width: 120rem;
+  }
+
+  .heading-primary {
+    font-size: 4.4rem;
+  }
+
+  .gallery-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  aside {
+    line-height: 1.6;
+  }
+}
+
+/***************************************/
+
+/*! ********************************** */
+/* BELOW 1200px (Landscape Tablets) (Range-wise) */
+/*! ********************************** */
+
+/*todo 4: Responding to Landscape Tablets */
+
+@media (max-width: 75em) {
+  html {
+    /* 9px / 16px = 0.5625px = 56.25% */
+    /*? Since, we've used most of our units in rem in our css styles. So, while choosing a breakpoint for landscape tablet we will just reduce the mentioned font-size in html from 10px to 9px.*/
+    font-size: 56.25%;
+  }
+
+  .grid {
+    row-gap: 6.4rem;
+    column-gap: 4.8rem;
+  }
+
+  .heading-secondary {
+    font-size: 3.6rem;
+  }
+
+  .heading-tertiary {
+    font-size: 2.4rem;
+  }
+
+  .header {
+    padding: 0 3.2rem;
+  }
+
+  .navbar-list {
+    gap: 3.2rem;
+  }
+
+  .hero {
+    gap: 4.8rem;
+  }
+
+  .testimonial-container {
+    padding: 9.6rem 3.2rem;
+  }
+
+  aside {
+    line-height: 1.6;
+  }
+}
+
+/*! ********************************** */
+/* BELOW 944px (Portrait Tablets) (Design Break-wise) */
+/*! ********************************** */
+
+/*todo 4: Responding to Tablets */
+
+@media (max-width: 59em) {
+  html {
+    /* 8px / 16px = 0.5px = 50% */
+    font-size: 50%;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 0 8rem;
+    gap: 6.4rem; /** Increased from prev mq of 4.8rem */
+  }
+
+  .hero-text-box,
+  .hero-img-box {
+    text-align: center;
+  }
+
+  .delievered-meals {
+    justify-content: center;
+    margin-top: 3.2rem;
+  }
+
+  .hero-img {
+    width: 60%;
+  }
+
+  .featured-logo img {
+    height: 2.4rem;
+  }
+
+  .step-number {
+    font-size: 7.4rem;
+  }
+
+  .meal-content {
+    padding: 2.4rem 3.2rem 3.2rem;
+  }
+
+  .section-testimonials {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-container {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .cta-container {
+    /* 3/5 = 60% & 2/5 = 40% */
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .cta-form {
+    grid-template-columns: 1fr;
+  }
+
+  .btn--form {
+    margin-top: 1.2rem;
+  }
+
+  .pricing-plan-card {
+    /* width: 80%; */
+    /* padding: 4.8rem 4.8rem 4.8rem; */
+  }
+
+  /*? Hamburger Menu */
+  .btn-mobile-nav {
+    display: block; /*Since we want the icon to be displayed only to small screen sizes*/
+    z-index: 9999;
+  }
+
+  /** Building the Navigation inside of hamburger menu after we click it. */
+  .navbar {
+    background-color: rgba(255, 255, 255, 0.9);
+    /** For Safari */
+    -webkit-backdrop-filter: blur(5px);
+    /** For Rest */
+    backdrop-filter: blur(5px);
+    /*? We can see that the content on the background gets blurred. */
+    /** This property do not works with safari browser (if not used -webkit- prefix.) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+
+    /* Flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+    transform: translateX(100%); /** For right swipe nav animation */
+
+    /** Hiding Navigation (.nav-open class not applied )*/
+    /* display: none; */
+    /* display: none; allows NO Transitions at all */
+
+    /*? 1) Hide the navbar visually */
+    opacity: 0;
+
+    /*? 2) Make it unaccessible to mouse & keyboard so that after hitting tab keys, it will not navigate through btn elements. */
+    pointer-events: none;
+
+    /*? 3) Hide the navbar from the screen readers */
+    visibility: hidden;
+  }
+
+  /** When nav-open class is applied, the styles under it will be applied & vice versa. */
+  .nav-open .navbar {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  /** When navbar is opened, we want the close icon to show up */
+  .nav-open .icon-mobile-menu[name="close-outline"] {
+    display: block;
+  }
+
+  /** When navbar is opened, we want the menu icon to be hidden */
+  .nav-open .icon-mobile-menu[name="menu-outline"] {
+    display: none;
+  }
+
+  .navbar-list {
+    flex-direction: column;
+    gap: 4.8rem;
+  }
+
+  .navbar-link:link,
+  .navbar-link:visited {
+    font-size: 3rem;
+  }
+
+  aside {
+    line-height: 1.6;
+  }
+}
+
+/*! ********************************** */
+/* BELOW 770px (smaller Tablets) (Design Break-wise) */
+/*! ********************************** */
+
+/*todo 4: Responding to Small Tablets */
+
+@media (max-width: 48em) {
+  .grid--3-cols,
+  .grid--4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .meal-category-list {
+    grid-column: 1 /-1;
+    justify-self: center;
+  }
+
+  .heading-secondary {
+    margin-bottom: 6.4rem;
+  }
+
+  .pricing-plan-card {
+    width: 100%;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .contact-details,
+  .logo-socials {
+    grid-column: span 3;
+  }
+
+  .footer-nav {
+    grid-row: 1 / 2;
+    grid-column: span 2;
+    margin-bottom: 3.2rem;
+  }
+
+  aside {
+    line-height: 1.6;
+  }
+}
+
+/*! ********************************** */
+/* BELOW 544px (phones) (Range-wise) */
+/*! ********************************** */
+
+/*todo 4: Responding to Phones*/
+
+@media (max-width: 34em) {
+  .grid--2-cols,
+  .grid--3-cols,
+  .grid--4-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 0 3.2rem;
+  }
+
+  .section-hero {
+    background-color: #fdf2e9;
+    padding: 2.4rem 0 6.4rem 0;
+  }
+
+  .btn--form,
+  .hero-btn:link,
+  .hero-btn:visited {
+    padding: 2.4rem 1.6rem;
+  }
+
+  .hero-img {
+    width: 80%;
+  }
+
+  .featured-logo img {
+    height: 1.2rem;
+  }
+
+  .step-img-box:nth-child(2) {
+    grid-row: 1;
+  }
+  /*! NOTE: The value inside nth-child() pseudo class is the is the position of the given element occuring from it's parent container. */
+  /** Here, in .step-img-box:nth-child(2), the step-img-box is the 2nd child of the div. */
+
+  .step-img-box:nth-child(6) {
+    grid-row: 5;
+  }
+
+  .step-img-box {
+    transform: translateY(2.4rem);
+  }
+
+  .testimonial-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+
+  .cta-container {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-img-box {
+    height: 32rem;
+    grid-row: 1;
+  }
+
+  .cta-form-box {
+    padding: 3.2rem;
+  }
+
+  aside {
+    line-height: 1.6;
+  }
+}
+
+/*! ********************************** */
+/* Fixing Safari Flexbox gap property */
+/*! ********************************** */
+
+.no-flexbox-gap .navbar-list li:not(:last-child) {
+  margin-right: 4.8rem;
+}
+
+.no-flexbox-gap .list-item:not(:last-child) {
+  margin-bottom: 1.6rem;
+}
+
+.no-flexbox-gap .list-icon:not(:last-child) {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .delivered-faces {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .meal-attribute:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.no-flexbox-gap .meal-icon {
+  margin-right: 1.6rem;
+}
+
+.no-flexbox-gap .footer-row div:not(:last-child) {
+  margin-right: 6.4rem;
+}
+
+.no-flexbox-gap .social-links li:not(:last-child) {
+  margin-right: 2.4rem;
+}
+
+.no-flexbox-gap .footer-nav li:not(:last-child) {
+  margin-bottom: 2.4rem;
+}
+
+@media (max-width: 75em) {
+  .no-flexbox-gap .navbar-list li:not(:last-child) {
+    margin-right: 3.2rem;
+  }
+}
+
+@media (max-width: 59em) {
+  .no-flexbox-gap .navbar-list li:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 4.8rem;
+  }
+}

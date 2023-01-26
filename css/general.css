@@ -1,0 +1,313 @@
+/** Typography
+
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Line Height
+Default: 1
+Small: 1.05
+Medium: 1.2
+Paragraph-default: 1.6
+
+- Font Weights
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+
+- Letter Spacing
+-0.5px
+0.75px
+
+/** Colors
+
+- Primary: #e67e22
+
+- Tints: #fdf2e9, #fae5d3
+- Shades: #cf711f, #eb984e, #45260a
+- Accent:
+- Greys: 
+#888
+#767676 (lightest grey allowed on #fff),
+#6f6f6f (lightest grey allowed on #fdf2e9), 
+#555, 
+#333
+
+/** Images
+
+/** Icons
+
+/** Shadows
+box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+
+/** Border Radius
+- Default: 9px
+Medium: 11px
+
+/** WhiteSpace
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: #555;
+
+  /* Only works if there's nothing absolutely positioned in relation to body */
+  overflow-x: hidden;
+}
+
+/* ******************************* */
+
+/*? CONCEPT/THEORY EXPLAINATION */
+
+.test {
+  /* todo: max-width */
+
+  /* width: 1000px; */
+  /*? While using width property, if we reduce the screen/window-size the width of the div/element remains the same. We can see that with the presence of horizontal scrollbar at the bottom. */
+  background-color: red;
+  padding: 100px;
+  max-width: 1000px;
+  /*? max-width property makes the div/element flexible to adapt the viewport width. No matter small is the width of viewport, the div/element adapt its full width since its flexible. That's also the reason why after replacing width with max-width, we are unable to see teh horizontal scrollbar. */
+
+  /*! NOTE: "If the container width is larger than the specified max-width, then the width of the element is equal to the value that was specified for the max-width. 
+  /*! However, if the container width is less than the specified max-width, then the width of the element will be 100% of the container element width." */
+
+  /* todo: rem unit */
+  max-width: 50rem;
+  /*? 1rem = 16px */
+  /* So, the max-width here will be 800px. */
+  padding: 4rem;
+  font-size: 2rem;
+  color: #fff;
+
+  /** The value of 1rem is at default of 16px, but the value of 1rem can be changed. The value of 1rem depends on the html selector */
+
+  /* ! NOTE: Now onwards, use rem unit instead of px unit. */
+}
+
+/*! ********************************** */
+/* GENERAL REUSABLE COMPONENTS */
+/*! ********************************** */
+
+html {
+  /* font-size: 10px; */
+  /* 10px / 16px = 0.625px = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+
+  /*! NOTE: Always set the font-size inside the html selector to 62.5% for any new project as a part of global reset. So that the user's browser font-size setting will be 62.5% * 16px = 10px, which will be easier of us to calculate the rem unit. */
+
+  overflow-x: hidden;
+
+  scroll-behavior: smooth;
+  /* To smoothen scrolling */
+}
+
+.heading-primary,
+.heading-secondary,
+.heading-tertiary {
+  color: #333;
+  /* color: #45260a; Colors slightly related to the bg color can also be used as headings. */
+  /* color: #343a40; */
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+.heading-primary {
+  font-size: 5.2rem;
+  line-height: 1.05;
+  /* Here, in letter-spacing property we are using px unit instead of rem unit because, for such small distance there's no need of it, also it's a distance we don't really need to scale up & down. */
+  margin-bottom: 3.2rem;
+}
+
+.heading-secondary {
+  font-size: 4.4rem;
+  line-height: 1.2;
+  margin-bottom: 9.6rem;
+}
+
+.heading-tertiary {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
+}
+
+.sub-heading {
+  display: block; /* Span is a inline element */
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #cf711f;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.75px;
+}
+
+/* Combined hero btn styles */
+.btn--form,
+.hero-btn:link,
+.hero-btn:visited {
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  /* Display set to inline-block because the anchor is an inline element (padding on the sides can be increased but padding on top & bottom will collapse its margin.) */
+  padding: 1.6rem 3.2rem;
+  border-radius: 9px;
+
+  /* todo: Adding animations to hero-btns */
+  /* * Due to lack of transition animation on btns, while hovering the btns we can see the transition from 1 color to another looks bit unprofessional. Transition property is used to add animation. */
+  /* ! NOTE: Transition property should be applied to the original state of btn/element. */
+  transition: all 0.3s /*transition-type*/;
+  /* ? Here, 
+  ? all-> all the properties which are applied will undergo transition.
+  ? 1s -> is the duration for which the transition will take place. 
+  ? transition-type -> is the property of which type of transition do we want in our component. */
+
+  /* ? SYNTAX */
+  /* transition: property1 duration1, property2 duration2 transition-type; */
+  /* Example:
+  transition: margin-right 2s, color 1s; */
+
+  /* ! NOTE: Duration can also be in mili-seconds (ms), ex: 1000ms. */
+}
+
+.btn--form:hover {
+  background-color: #fff;
+  color: #555;
+}
+
+/* 1st hero btn */
+.btn-cta:link,
+.btn-cta:visited {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+.btn-cta:hover,
+.btn-cta:active {
+  background-color: #cf711f;
+}
+
+/* 2nd hero btn */
+.btn-outline:link,
+.btn-outline:visited {
+  background-color: #fff;
+  color: #555;
+}
+
+.btn-outline:hover,
+.btn-outline:active {
+  background-color: #fdf2e9;
+  color: #555;
+
+  /* * Adding inner-border to the button so that it doesn't create jumpy effect while hovering over it. */
+  /* border: 3px solid #fff; */
+
+  /* todo: Trick to add border inside */
+  box-shadow: inset 0 0 0 3px #fff;
+  /* ? inset value is used to add inner border. The presence of the inset keyword changes the shadow to one inside the frame. */
+}
+
+.link:link,
+.link:visited {
+  display: inline-block;
+  color: #e67e22;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  /*? The color which is applied to the color property of the current element gets applied through currentColor property. */
+  padding-bottom: 2px;
+  /** To create more distance between text & border. */
+  transition: all 0.3s;
+}
+
+.link:hover,
+.link:active {
+  color: #cf711f;
+  /* border: none; */
+  /** border: none; will create a jumpy effect on hover. To avoid this we will use the same border property but this time 'Transparent' value instead of color. */
+  border-bottom: 1px solid transparent;
+  /*? Transparent can also be written as rgba(0, 0, 0, 0) */
+}
+
+.container {
+  max-width: 120rem; /* 1140px & 1200px are generally used */
+  /* To make sure, horizontal sidebar does not gets applied when we reduce the size of browser. */
+  margin: 0 auto; /* To center the container */
+  padding: 0 3.2rem; /* Adding padding on the l & r sides so that the content do not stick to the browser window on sides when screen size is decreased. */
+}
+
+.grid {
+  display: grid;
+  row-gap: 9.6rem;
+  column-gap: 6.4rem;
+}
+
+.grid:not(:last-child) {
+  margin-bottom: 9.6rem;
+}
+/*! NOTE: Here, we want the grid to apply the margin-bottom: 9.6rem to all the elements except the last-child element which is grid (the only grid inside a section) */
+
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--4-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--5-cols {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid--center-v /* Grid centered vertically */ {
+  align-items: center;
+  /** Since, class .grid is a reusable grid, and we dont want align-items to center for every grid we make using reusable grid, so here we are adding a new center grid class. */
+}
+
+/* todo: HELPER/SETTINGS CLASSES */
+
+.margin-bottom-md {
+  margin-bottom: 4.8rem !important;
+}
+
+.margin-right-sm {
+  margin-right: 1.6rem !important;
+}
+/* * This is a helper class that we wanted to apply to the elements on whose right side we want a margin of 1.6rem. And marked as !important because we want that style to apply no matter what we change its value by mistake in future. */
+
+/* ? Since the font-weight of strong tag is too much, we will use css styles on strong element. */
+strong {
+  font-weight: 500;
+}
+/*! NOTE: The default font-weight of strong element is 700. Here we changed it to 500. */
+
+.center-text {
+  text-align: center;
+}
+
+*:focus {
+  outline: none;
+  /*! outline: 4px dotted #e67e22; */
+  /*! outline-offset: 8px; */
+  /** We can set the outline just like the border property & can give an offset width. */
+  box-shadow: 0 0 0 0.5rem rgba(230, 126, 34, 0.5);
+}
+/*? Whenever we hit tab in our website, the webpage automatically shifts to the links & buttons in our webpage & makes a coloured outline outside it. */
+/*? This helps increasing our website's accessibility. So that people could see that focused links & buttons. */
+/** So, we set the focus state to none by setting the outline property to none. It is like a global reset for focus. */
+/** It is very bad for website's accessibility, because now we don't know where the where is the link when we press tab. */
+/*? We can make that ugly outline look beautiful by using box-shadow property */
